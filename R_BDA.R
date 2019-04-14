@@ -58,16 +58,12 @@ print(stats)
 
 
 ################## PREGUNTA 2 y 3 ########################################
-alldata <- c$find( '{}', '{"comentarios" : true}')
+alldata <- c$find( '{}', '{"comentarios.summary" : true}')
 
-corpus<-VCorpus(VectorSource(alldata[2]))
+corpus<-Corpus(VectorSource(alldata[2]))
 
 # Crear un transformador de contenido llamado toSpace:
 toSpace <- content_transformer(function(x, pattern) {return (gsub(pattern, " ", x))}) 
-corpus <- tm_map(corpus, PlainTextDocument)
-corpus<- tm_map(corpus,removePunctuation)
-corpus <- tm_map(corpus, removeNumbers)
-corpus <- tm_map(corpus, stripWhitespace)
 
 corpus <- tm_map(corpus, toSpace, '"') 
 corpus <- tm_map(corpus,stemDocument) 
@@ -75,7 +71,7 @@ corpus <- tm_map(corpus, removeWords, stopwords("english"))
 
 
 # Matriz de documentos - términos (MDT)
-#dtm<- DocumentTermMatrix(corpus)
+dtm<- DocumentTermMatrix(corpus)
 (w <- with(presidential_debates_2012, q_dtm(corpus, paste(time, tot, sep = "_"))))
 # Contar la frecuencia de ocurrencia de cada palabra en el corpus
 # .es decir sumar todas las filas y mostrar las sumas de cada columna
