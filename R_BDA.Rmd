@@ -1,3 +1,9 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+```{r}
 library(mongolite)
 library(tm)
 library(SnowballC)
@@ -11,9 +17,6 @@ library(cluster)
 library(fpc)
 library(rmarkdown)
 
-```{r}
-
-render("C:/Users/franc/Documents/Gitkraken/tarea1BDA/R_BDA.R", output_format = "pdf_document")
 
 c=mongo(collection = "EmpresasT" ,db="BDA")
 c$drop()

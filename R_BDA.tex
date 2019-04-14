@@ -1,0 +1,583 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\providecommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{}
+    \pretitle{\vspace{\droptitle}}
+  \posttitle{}
+    \author{}
+    \preauthor{}\postauthor{}
+    \date{}
+    \predate{}\postdate{}
+  
+
+\begin{document}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(mongolite)}
+\KeywordTok{library}\NormalTok{(tm)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: NLP
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(SnowballC)}
+\KeywordTok{library}\NormalTok{(jsonlite)}
+\KeywordTok{library}\NormalTok{(stringi)}
+\KeywordTok{library}\NormalTok{(ggplot2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'ggplot2'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:NLP':
+## 
+##     annotate
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(Rcpp) }
+\KeywordTok{library}\NormalTok{(wordcloud)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: RColorBrewer
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(RColorBrewer) }
+\KeywordTok{library}\NormalTok{(cluster) }
+\KeywordTok{library}\NormalTok{(fpc)}
+\KeywordTok{library}\NormalTok{(rmarkdown)}
+
+
+\NormalTok{c=}\KeywordTok{mongo}\NormalTok{(}\DataTypeTok{collection =} \StringTok{"EmpresasT"}\NormalTok{ ,}\DataTypeTok{db=}\StringTok{"BDA"}\NormalTok{)}
+\NormalTok{c}\OperatorTok{$}\KeywordTok{drop}\NormalTok{()}
+\NormalTok{c}\OperatorTok{$}\KeywordTok{count}\NormalTok{(}\StringTok{'\{\}'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# se quitaron los index y links}
+\NormalTok{Datos_columnas_correctas <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\DataTypeTok{file=}\StringTok{"C:/Users/franc/Documents/Gitkraken/tarea1BDA/employee_reviews.csv"}\NormalTok{, }\DataTypeTok{header=}\OtherTok{TRUE}\NormalTok{, }\DataTypeTok{sep=}\StringTok{","}\NormalTok{, }\DataTypeTok{colClasses=}\KeywordTok{c}\NormalTok{(}\StringTok{"NULL"}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\StringTok{"numeric"}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\StringTok{"NULL"}\NormalTok{))}
+
+
+\CommentTok{#Se hizo todo minuscula}
+\NormalTok{Datos_columnas_correctas[,}\DecValTok{1}\OperatorTok{:}\DecValTok{8}\NormalTok{] <-}\StringTok{ }\KeywordTok{lapply}\NormalTok{(Datos_columnas_correctas[,}\DecValTok{1}\OperatorTok{:}\DecValTok{8}\NormalTok{], tolower)}
+
+\NormalTok{Datos_columnas_correctas[,}\DecValTok{4}\OperatorTok{:}\DecValTok{8}\NormalTok{] <-}\StringTok{ }\KeywordTok{lapply}\NormalTok{(Datos_columnas_correctas[,}\DecValTok{4}\OperatorTok{:}\DecValTok{8}\NormalTok{], gsub, }\DataTypeTok{pattern=}\StringTok{'-'}\NormalTok{, }\DataTypeTok{replacement=}\StringTok{''}\NormalTok{)}
+\NormalTok{Datos_columnas_correctas[,}\DecValTok{4}\OperatorTok{:}\DecValTok{8}\NormalTok{] <-}\StringTok{ }\KeywordTok{lapply}\NormalTok{(Datos_columnas_correctas[,}\DecValTok{4}\OperatorTok{:}\DecValTok{8}\NormalTok{], gsub, }\DataTypeTok{pattern=}\StringTok{'*'}\NormalTok{, }\DataTypeTok{replacement=}\StringTok{''}\NormalTok{)}
+\NormalTok{Datos_columnas_correctas[,}\DecValTok{4}\OperatorTok{:}\DecValTok{8}\NormalTok{] <-}\StringTok{ }\KeywordTok{lapply}\NormalTok{(Datos_columnas_correctas[,}\DecValTok{4}\OperatorTok{:}\DecValTok{8}\NormalTok{], gsub, }\DataTypeTok{pattern=}\StringTok{':'}\NormalTok{, }\DataTypeTok{replacement=}\StringTok{''}\NormalTok{)}
+\NormalTok{Datos_columnas_correctas[,}\DecValTok{4}\OperatorTok{:}\DecValTok{8}\NormalTok{] <-}\StringTok{ }\KeywordTok{lapply}\NormalTok{(Datos_columnas_correctas[,}\DecValTok{4}\OperatorTok{:}\DecValTok{8}\NormalTok{], gsub, }\DataTypeTok{pattern=}\StringTok{'[[:punct:]]'}\NormalTok{, }\DataTypeTok{replacement=}\StringTok{''}\NormalTok{)}
+\NormalTok{Datos_columnas_correctas[,}\DecValTok{4}\OperatorTok{:}\DecValTok{8}\NormalTok{] <-}\StringTok{ }\KeywordTok{lapply}\NormalTok{(Datos_columnas_correctas[,}\DecValTok{4}\OperatorTok{:}\DecValTok{8}\NormalTok{], gsub, }\DataTypeTok{pattern=}\StringTok{'none'}\NormalTok{, }\DataTypeTok{replacement=}\StringTok{''}\NormalTok{)}
+\NormalTok{Datos_columnas_correctas[,}\DecValTok{4}\OperatorTok{:}\DecValTok{8}\NormalTok{] <-}\StringTok{ }\KeywordTok{lapply}\NormalTok{(Datos_columnas_correctas[,}\DecValTok{4}\OperatorTok{:}\DecValTok{8}\NormalTok{], gsub, }\DataTypeTok{pattern=}\StringTok{'and '}\NormalTok{, }\DataTypeTok{replacement=}\StringTok{''}\NormalTok{)}
+\NormalTok{Datos_columnas_correctas[,}\DecValTok{4}\OperatorTok{:}\DecValTok{8}\NormalTok{] <-}\StringTok{ }\KeywordTok{lapply}\NormalTok{(Datos_columnas_correctas[,}\DecValTok{4}\OperatorTok{:}\DecValTok{8}\NormalTok{], gsub, }\DataTypeTok{pattern=}\StringTok{'the '}\NormalTok{, }\DataTypeTok{replacement=}\StringTok{''}\NormalTok{)}
+
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\KeywordTok{nrow}\NormalTok{(Datos_columnas_correctas)) \{}
+\NormalTok{  row <-}\StringTok{ }\NormalTok{Datos_columnas_correctas[i,]}
+\NormalTok{  mylist <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\DataTypeTok{company=}\NormalTok{row}\OperatorTok{$}\NormalTok{company,}
+                 \DataTypeTok{job_title =}\NormalTok{row}\OperatorTok{$}\NormalTok{job.title,}
+                 \DataTypeTok{comentarios=}\KeywordTok{list}\NormalTok{(}\StringTok{"summary"}\NormalTok{=row}\OperatorTok{$}\NormalTok{summary,}
+                                  \StringTok{"pros"}\NormalTok{=row}\OperatorTok{$}\NormalTok{pros,}
+                                  \StringTok{"cons"}\NormalTok{=row}\OperatorTok{$}\NormalTok{cons,}
+                                  \StringTok{"advice_to_mgmt"}\NormalTok{=row}\OperatorTok{$}\NormalTok{advice.to.mgmt),}
+                 \DataTypeTok{ratings=}\KeywordTok{list}\NormalTok{(}\StringTok{"overall_ratings"}\NormalTok{=row}\OperatorTok{$}\NormalTok{overall.ratings,}
+                              \StringTok{"work_balance_stars"}\NormalTok{=row}\OperatorTok{$}\NormalTok{work.balance.stars,}
+                              \StringTok{"culture_values_stars"}\NormalTok{=row}\OperatorTok{$}\NormalTok{culture.values.stars,}
+                              \StringTok{"carrer_opportunities_stars"}\NormalTok{=row}\OperatorTok{$}\NormalTok{carrer.opportunities.stars,}
+                              \StringTok{"comp_benefit_stars"}\NormalTok{=row}\OperatorTok{$}\NormalTok{comp.benefit.stars,}
+                              \StringTok{"senior_mangemnet_stars"}\NormalTok{=row}\OperatorTok{$}\NormalTok{senior.mangemnet.stars)}
+\NormalTok{  )}
+  
+\NormalTok{  insertar <-}\StringTok{ }\NormalTok{jsonlite}\OperatorTok{::}\KeywordTok{toJSON}\NormalTok{(mylist, }\DataTypeTok{pretty=}\OtherTok{TRUE}\NormalTok{, }\DataTypeTok{auto_unbox=}\OtherTok{TRUE}\NormalTok{)}
+\NormalTok{  c}\OperatorTok{$}\KeywordTok{insert}\NormalTok{(insertar)}
+  
+\NormalTok{\}}
+
+
+
+\NormalTok{stats <-}\StringTok{ }\NormalTok{c}\OperatorTok{$}\KeywordTok{aggregate}\NormalTok{(}
+  \StringTok{'[\{"$group":\{"_id":"$company", "count": \{"$sum":1\}, "average":\{"$avg": "$ratings.overall_ratings" \}\}\}]'}\NormalTok{,}
+  \DataTypeTok{options =} \StringTok{'\{"allowDiskUse":true\}'}
+\NormalTok{)}
+\KeywordTok{names}\NormalTok{(stats) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"company"}\NormalTok{, }\StringTok{"count"}\NormalTok{, }\StringTok{"average"}\NormalTok{)}
+\KeywordTok{print}\NormalTok{(stats)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     company count  average
+## 1 microsoft 17930 3.816564
+## 2   netflix   810 3.411111
+## 3    amazon 26430 3.587363
+## 4  facebook  1590 4.511950
+## 5     apple 12950 3.958224
+## 6    google  7819 4.339430
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{################## PREGUNTA 2 y 3 ########################################}
+\NormalTok{Comentarios <-}\StringTok{ }\NormalTok{c}\OperatorTok{$}\KeywordTok{find}\NormalTok{( }\StringTok{'\{\}'}\NormalTok{, }\StringTok{'\{"comentarios" : true\}'}\NormalTok{)}
+
+\NormalTok{corpus<-}\KeywordTok{VCorpus}\NormalTok{(}\KeywordTok{VectorSource}\NormalTok{(Comentarios[}\DecValTok{2}\NormalTok{]))}
+
+\NormalTok{toSpace <-}\StringTok{ }\KeywordTok{content_transformer}\NormalTok{(}\ControlFlowTok{function}\NormalTok{(x, pattern) \{}\KeywordTok{return}\NormalTok{ (}\KeywordTok{gsub}\NormalTok{(pattern, }\StringTok{" "}\NormalTok{, x))\})}
+
+\NormalTok{corpus <-}\StringTok{ }\KeywordTok{tm_map}\NormalTok{(corpus, toSpace, }\StringTok{'"'}\NormalTok{)}
+\CommentTok{# Remover stopwords usando la lista estandar de tm}
+\NormalTok{corpus <-}\StringTok{ }\KeywordTok{tm_map}\NormalTok{(corpus, removeWords, }\KeywordTok{stopwords}\NormalTok{(}\StringTok{"english"}\NormalTok{))}
+\NormalTok{corpus <-}\StringTok{ }\KeywordTok{tm_map}\NormalTok{(corpus,stemDocument)}
+
+\CommentTok{# Matriz de documentos - términos (MDT)}
+\NormalTok{dtm<-}\StringTok{ }\KeywordTok{DocumentTermMatrix}\NormalTok{(corpus)}
+\NormalTok{dtm}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## <<DocumentTermMatrix (documents: 1, terms: 43300)>>
+## Non-/sparse entries: 43300/0
+## Sparsity           : 0%
+## Maximal term length: 111
+## Weighting          : term frequency (tf)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Contar la frecuencia de ocurrencia de cada palabra en el corpus}
+\CommentTok{# .es decir sumar todas las filas y mostrar las sumas de cada columna}
+\NormalTok{freq <-}\StringTok{ }\KeywordTok{colSums}\NormalTok{(}\KeywordTok{as.matrix}\NormalTok{(dtm))}
+\CommentTok{# Ordenar las frecuencias}
+\NormalTok{ord <-}\StringTok{ }\KeywordTok{order}\NormalTok{(freq,}\DataTypeTok{decreasing=}\OtherTok{TRUE}\NormalTok{)}
+\CommentTok{# Listar los términos más y menos frecuentes}
+\NormalTok{freq[}\KeywordTok{head}\NormalTok{(ord)]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    work   great   manag compani   peopl    good 
+##   87791   45621   41244   40677   38729   38035
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{inspect}\NormalTok{(dtm)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## <<DocumentTermMatrix (documents: 1, terms: 43300)>>
+## Non-/sparse entries: 43300/0
+## Sparsity           : 0%
+## Maximal term length: 111
+## Weighting          : term frequency (tf)
+## Sample             :
+##     Terms
+## Docs   can compani employe   get  good great manag peopl  time  work
+##    1 22474   40677   24142 25604 38035 45621 41244 38729 20964 87791
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{findAssocs}\NormalTok{(dtm,}\StringTok{"difficult"}\NormalTok{,}\FloatTok{0.5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $difficult
+## numeric(0)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{findAssocs}\NormalTok{(dtm,}\StringTok{"compani"}\NormalTok{,}\FloatTok{0.6}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $compani
+## numeric(0)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{findAssocs}\NormalTok{(dtm,}\StringTok{"place"}\NormalTok{,}\FloatTok{0.6}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $place
+## numeric(0)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{findAssocs}\NormalTok{(dtm,}\KeywordTok{c}\NormalTok{(}\StringTok{"work"}\NormalTok{, }\StringTok{"great"}\NormalTok{),}\FloatTok{0.6}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $work
+## numeric(0)
+## 
+## $great
+## numeric(0)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{##################################################################################}
+
+
+
+\NormalTok{######################## Pregunta 4 ##############################################}
+
+\NormalTok{datos_facebook <-}\StringTok{ }\NormalTok{c}\OperatorTok{$}\KeywordTok{find}\NormalTok{(}\StringTok{'\{"company" : "facebook" \}'}\NormalTok{, }\StringTok{'\{"comentarios.summary" : true\}'}\NormalTok{)}
+\NormalTok{datos_google <-}\StringTok{ }\NormalTok{c}\OperatorTok{$}\KeywordTok{find}\NormalTok{(}\StringTok{'\{"company" : "google" \}'}\NormalTok{, }\StringTok{'\{"comentarios.summary" : true\}'}\NormalTok{)}
+\NormalTok{datos_apple <-}\StringTok{ }\NormalTok{c}\OperatorTok{$}\KeywordTok{find}\NormalTok{(}\StringTok{'\{"company" : "apple" \}'}\NormalTok{, }\StringTok{'\{"comentarios.summary" : true\}'}\NormalTok{)}
+
+\NormalTok{corpus_facebook<-}\KeywordTok{VCorpus}\NormalTok{(}\KeywordTok{VectorSource}\NormalTok{(datos_facebook[}\DecValTok{2}\NormalTok{]))}
+\NormalTok{corpus_google<-}\KeywordTok{VCorpus}\NormalTok{(}\KeywordTok{VectorSource}\NormalTok{(datos_google[}\DecValTok{2}\NormalTok{]))}
+\NormalTok{corpus_apple<-}\KeywordTok{VCorpus}\NormalTok{(}\KeywordTok{VectorSource}\NormalTok{(datos_apple[}\DecValTok{2}\NormalTok{]))}
+
+\NormalTok{corpus_facebook <-}\StringTok{ }\KeywordTok{tm_map}\NormalTok{(corpus_facebook, toSpace, }\StringTok{'"'}\NormalTok{)}
+\CommentTok{# Remover stopwords usando la lista estandar de tm}
+\NormalTok{corpus_facebook <-}\StringTok{ }\KeywordTok{tm_map}\NormalTok{(corpus_facebook, removeWords, }\KeywordTok{stopwords}\NormalTok{(}\StringTok{"english"}\NormalTok{))}
+\NormalTok{corpus_facebook <-}\StringTok{ }\KeywordTok{tm_map}\NormalTok{(corpus_facebook,stemDocument)}
+
+\NormalTok{dtm<-}\StringTok{ }\KeywordTok{DocumentTermMatrix}\NormalTok{(corpus_facebook)}
+\NormalTok{freq <-}\StringTok{ }\KeywordTok{colSums}\NormalTok{(}\KeywordTok{as.matrix}\NormalTok{(dtm))}
+\NormalTok{ord <-}\StringTok{ }\KeywordTok{order}\NormalTok{(freq,}\DataTypeTok{decreasing=}\OtherTok{TRUE}\NormalTok{)}
+\NormalTok{freq[}\KeywordTok{head}\NormalTok{(ord)]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    work   place   great compani    best    amaz 
+##     412     305     296     243     190     118
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{corpus_google <-}\StringTok{ }\KeywordTok{tm_map}\NormalTok{(corpus_google, toSpace, }\StringTok{'"'}\NormalTok{)}
+\CommentTok{# Remover stopwords usando la lista estandar de tm}
+\NormalTok{corpus_google <-}\StringTok{ }\KeywordTok{tm_map}\NormalTok{(corpus_google, removeWords, }\KeywordTok{stopwords}\NormalTok{(}\StringTok{"english"}\NormalTok{))}
+\NormalTok{corpus_google <-}\StringTok{ }\KeywordTok{tm_map}\NormalTok{(corpus_google,stemDocument)}
+
+\NormalTok{dtm<-}\StringTok{ }\KeywordTok{DocumentTermMatrix}\NormalTok{(corpus_google)}
+\NormalTok{freq <-}\StringTok{ }\KeywordTok{colSums}\NormalTok{(}\KeywordTok{as.matrix}\NormalTok{(dtm))}
+\KeywordTok{length}\NormalTok{(freq)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2382
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ord <-}\StringTok{ }\KeywordTok{order}\NormalTok{(freq,}\DataTypeTok{decreasing=}\OtherTok{TRUE}\NormalTok{)}
+\NormalTok{freq[}\KeywordTok{head}\NormalTok{(ord)]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   great    work compani   place    good   googl 
+##    1843    1573    1172    1171     784     760
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{corpus_apple <-}\StringTok{ }\KeywordTok{tm_map}\NormalTok{(corpus_apple, toSpace, }\StringTok{'"'}\NormalTok{)}
+\CommentTok{# Remover stopwords usando la lista estandar de tm}
+\NormalTok{corpus_apple <-}\StringTok{ }\KeywordTok{tm_map}\NormalTok{(corpus_apple, removeWords, }\KeywordTok{stopwords}\NormalTok{(}\StringTok{"english"}\NormalTok{))}
+\NormalTok{corpus_apple <-}\StringTok{ }\KeywordTok{tm_map}\NormalTok{(corpus_apple,stemDocument)}
+
+\NormalTok{dtm<-}\StringTok{ }\KeywordTok{DocumentTermMatrix}\NormalTok{(corpus_apple)}
+\NormalTok{freq <-}\StringTok{ }\KeywordTok{colSums}\NormalTok{(}\KeywordTok{as.matrix}\NormalTok{(dtm))}
+\KeywordTok{length}\NormalTok{(freq)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3175
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ord <-}\StringTok{ }\KeywordTok{order}\NormalTok{(freq,}\DataTypeTok{decreasing=}\OtherTok{TRUE}\NormalTok{)}
+\NormalTok{freq[}\KeywordTok{head}\NormalTok{(ord)]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      great       work       appl    compani      place specialist 
+##       2767       2007       1566       1530       1063       1062
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{###############################################################}
+
+\NormalTok{################### PREGUNTA 5 ################################}
+
+\NormalTok{Comentarios_p_c <-}\StringTok{ }\NormalTok{c}\OperatorTok{$}\KeywordTok{find}\NormalTok{( }\StringTok{'\{\}'}\NormalTok{, }\StringTok{'\{"comentarios.pros" : true, "comentarios.cons" : true\}'}\NormalTok{)}
+
+\NormalTok{cuerpo_pros_contra<-}\KeywordTok{VCorpus}\NormalTok{(}\KeywordTok{VectorSource}\NormalTok{(Comentarios_p_c[}\DecValTok{2}\NormalTok{]))}
+
+\NormalTok{cuerpo_pros_contra <-}\StringTok{ }\KeywordTok{tm_map}\NormalTok{(cuerpo_pros_contra, toSpace, }\StringTok{'"'}\NormalTok{)}
+\CommentTok{# Remover stopwords usando la lista estandar de tm}
+\NormalTok{cuerpo_pros_contra <-}\StringTok{ }\KeywordTok{tm_map}\NormalTok{(cuerpo_pros_contra, removeWords, }\KeywordTok{stopwords}\NormalTok{(}\StringTok{"english"}\NormalTok{))}
+\NormalTok{cuerpo_pros_contra <-}\StringTok{ }\KeywordTok{tm_map}\NormalTok{(cuerpo_pros_contra,stemDocument)}
+
+\CommentTok{# Matriz de documentos - términos (MDT)}
+\NormalTok{dtm<-}\StringTok{ }\KeywordTok{DocumentTermMatrix}\NormalTok{(cuerpo_pros_contra)}
+\NormalTok{dtm}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## <<DocumentTermMatrix (documents: 1, terms: 35920)>>
+## Non-/sparse entries: 35920/0
+## Sparsity           : 0%
+## Maximal term length: 111
+## Weighting          : term frequency (tf)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Contar la frecuencia de ocurrencia de cada palabra en el corpus}
+\CommentTok{# .es decir sumar todas las filas y mostrar las sumas de cada columna}
+\NormalTok{freq <-}\StringTok{ }\KeywordTok{colSums}\NormalTok{(}\KeywordTok{as.matrix}\NormalTok{(dtm))}
+\CommentTok{# Ordenar las frecuencias}
+\NormalTok{ord <-}\StringTok{ }\KeywordTok{order}\NormalTok{(freq,}\DataTypeTok{decreasing=}\OtherTok{TRUE}\NormalTok{)}
+\CommentTok{# Listar los términos más y menos frecuentes}
+\NormalTok{freq[}\KeywordTok{head}\NormalTok{(ord)]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    work   great   peopl compani    good   manag 
+##   67287   31003   29051   27892   27791   27013
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{###############################################################}
+
+\NormalTok{################### PREGUNTA 6 ################################}
+\CommentTok{# Setear un valor semilla}
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{42}\NormalTok{)}
+\CommentTok{# Nube de palabras en colores; palabras con frecuencia mínima de 70}
+\KeywordTok{wordcloud}\NormalTok{(}\KeywordTok{names}\NormalTok{(freq), freq,}\DataTypeTok{min.freq=}\DecValTok{5000}\NormalTok{,}\DataTypeTok{colors=}\KeywordTok{brewer.pal}\NormalTok{(}\DecValTok{6}\NormalTok{,}\StringTok{"Dark2"}\NormalTok{)) }
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{R_BDA_files/figure-latex/unnamed-chunk-1-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{###############################################################}
+
+\NormalTok{################### PREGUNTA 7 ################################}
+\NormalTok{dtm <-}\StringTok{ }\NormalTok{dtm[, }\KeywordTok{findFreqTerms}\NormalTok{(dtm, }\DataTypeTok{lowfreq =} \DecValTok{10000}\NormalTok{)]}
+\NormalTok{dtmr2 <-}\StringTok{ }\KeywordTok{removeSparseTerms}\NormalTok{(dtm, }\DataTypeTok{sparse =} \FloatTok{0.15}\NormalTok{)}
+\NormalTok{distMatrix <-}\StringTok{ }\KeywordTok{dist}\NormalTok{(}\KeywordTok{t}\NormalTok{(dtm), }\DataTypeTok{method=} \StringTok{"maximum"}\NormalTok{)}\CommentTok{# probar con otros métodos}
+\NormalTok{fit <-}\StringTok{ }\KeywordTok{hclust}\NormalTok{(distMatrix, }\DataTypeTok{method =} \StringTok{"complete"}\NormalTok{)}\CommentTok{# probar con otros métodos}
+\CommentTok{# Dendrograma}
+\KeywordTok{plot}\NormalTok{(fit, }\DataTypeTok{cex=}\FloatTok{0.9}\NormalTok{, }\DataTypeTok{hang=}\OperatorTok{-}\DecValTok{1}\NormalTok{, }\DataTypeTok{main =} \StringTok{"Dendrograma de Clusters de Palabras"}\NormalTok{)}
+\KeywordTok{rect.hclust}\NormalTok{(fit, }\DataTypeTok{k =} \DecValTok{4}\NormalTok{, }\DataTypeTok{border=}\StringTok{"green"}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{R_BDA_files/figure-latex/unnamed-chunk-1-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# De los clusters se ven muchos tipos de relaciones, por ejemplo se identifica uno}
+\CommentTok{# que relaciona "compañia" con "bienes", como tambien "empleado" con "equipo" y asi}
+\CommentTok{# otros mas. Tomando los recuadros verdes se observa que los cluster reseltan una}
+\CommentTok{# gran relacion a lo que se refieren las personas al hablar sobre compañias y empresas.}
+
+
+\NormalTok{###############################################################}
+
+
+\NormalTok{################# PREGUNTA EXTRA ##############################}
+\CommentTok{# cuales son los terminos mas comunes de los comentarios negativos }
+\CommentTok{# de la compañia peor evaluada y encontrar una relacion en base a los }
+\CommentTok{# clusters generados por los terminos mas frecuentes.}
+
+\NormalTok{datos_netflix <-}\StringTok{ }\NormalTok{c}\OperatorTok{$}\KeywordTok{find}\NormalTok{(}\StringTok{'\{"company" : "netflix" \}'}\NormalTok{, }\StringTok{'\{"comentarios.cons" : true\}'}\NormalTok{)}
+
+
+\NormalTok{corpus_netflix<-}\KeywordTok{VCorpus}\NormalTok{(}\KeywordTok{VectorSource}\NormalTok{(datos_netflix[}\DecValTok{2}\NormalTok{]))}
+
+
+\NormalTok{corpus_netflix <-}\StringTok{ }\KeywordTok{tm_map}\NormalTok{(corpus_netflix, toSpace, }\StringTok{'"'}\NormalTok{)}
+\CommentTok{# Remover stopwords usando la lista estandar de tm}
+\NormalTok{corpus_netflix <-}\StringTok{ }\KeywordTok{tm_map}\NormalTok{(corpus_netflix, removeWords, }\KeywordTok{stopwords}\NormalTok{(}\StringTok{"english"}\NormalTok{))}
+\NormalTok{corpus_netflix <-}\StringTok{ }\KeywordTok{tm_map}\NormalTok{(corpus_netflix,stemDocument)}
+
+\NormalTok{dtm<-}\StringTok{ }\KeywordTok{DocumentTermMatrix}\NormalTok{(corpus_netflix)}
+\NormalTok{freq <-}\StringTok{ }\KeywordTok{colSums}\NormalTok{(}\KeywordTok{as.matrix}\NormalTok{(dtm))}
+\NormalTok{ord <-}\StringTok{ }\KeywordTok{order}\NormalTok{(freq,}\DataTypeTok{decreasing=}\OtherTok{TRUE}\NormalTok{)}
+\NormalTok{freq[}\KeywordTok{head}\NormalTok{(ord)]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    work   manag   peopl     get    will netflix 
+##     391     390     290     281     249     241
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dtm <-}\StringTok{ }\NormalTok{dtm[, }\KeywordTok{findFreqTerms}\NormalTok{(dtm, }\DataTypeTok{lowfreq =} \DecValTok{100}\NormalTok{)]}
+\NormalTok{dtmr2 <-}\StringTok{ }\KeywordTok{removeSparseTerms}\NormalTok{(dtm, }\DataTypeTok{sparse =} \FloatTok{0.15}\NormalTok{)}
+\NormalTok{distMatrix <-}\StringTok{ }\KeywordTok{dist}\NormalTok{(}\KeywordTok{t}\NormalTok{(dtm), }\DataTypeTok{method=} \StringTok{"maximum"}\NormalTok{)}\CommentTok{# probar con otros métodos}
+\NormalTok{fit <-}\StringTok{ }\KeywordTok{hclust}\NormalTok{(distMatrix, }\DataTypeTok{method =} \StringTok{"complete"}\NormalTok{)}\CommentTok{# probar con otros métodos}
+\CommentTok{# Dendrograma}
+\KeywordTok{plot}\NormalTok{(fit, }\DataTypeTok{cex=}\FloatTok{0.9}\NormalTok{, }\DataTypeTok{hang=}\OperatorTok{-}\DecValTok{1}\NormalTok{, }\DataTypeTok{main =} \StringTok{"Dendrograma de Clusters de Palabras"}\NormalTok{)}
+\KeywordTok{rect.hclust}\NormalTok{(fit, }\DataTypeTok{k =} \DecValTok{4}\NormalTok{, }\DataTypeTok{border=}\StringTok{"green"}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{R_BDA_files/figure-latex/unnamed-chunk-1-3.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{##############################################################}
+\end{Highlighting}
+\end{Shaded}
+
+
+\end{document}
