@@ -21,6 +21,9 @@ Datos_columnas_correctas[,4:8] <- lapply(Datos_columnas_correctas[,4:8], gsub, p
 Datos_columnas_correctas[,4:8] <- lapply(Datos_columnas_correctas[,4:8], gsub, pattern='*', replacement='')
 Datos_columnas_correctas[,4:8] <- lapply(Datos_columnas_correctas[,4:8], gsub, pattern=':', replacement='')
 Datos_columnas_correctas[,4:8] <- lapply(Datos_columnas_correctas[,4:8], gsub, pattern='[[:punct:]]', replacement='')
+Datos_columnas_correctas[,4:8] <- lapply(Datos_columnas_correctas[,4:8], gsub, pattern='none', replacement='')
+Datos_columnas_correctas[,4:8] <- lapply(Datos_columnas_correctas[,4:8], gsub, pattern='and ', replacement='')
+Datos_columnas_correctas[,4:8] <- lapply(Datos_columnas_correctas[,4:8], gsub, pattern='the ', replacement='')
 
 for(i in 1:nrow(Datos_columnas_correctas)) {
   row <- Datos_columnas_correctas[i,]
@@ -55,47 +58,33 @@ print(stats)
 
 
 ################## PREGUNTA 2 y 3 ########################################
-alldata <- c$find( query = '{}',    fields = '{"comentarios" : true}', limit=100)
+alldata <- c$find( '{}', '{"comentarios" : true}')
 
-alldata[2]
+corpus<-VCorpus(VectorSource(alldata[2]))
 
-corpus<-Corpus(VectorSource(alldata[2]))
- 
-writeLines(as.character(corpus[[1]]))
-
-
-toSpace <- content_transformer(function(x, pattern) {return (gsub(pattern, " ", x))})
-
-corpus <- tm_map(corpus, toSpace, "the ")
-corpus <- tm_map(corpus, toSpace, "and ")
-corpus <- tm_map(corpus, toSpace, "none")
-
+# Crear un transformador de contenido llamado toSpace:
+toSpace <- content_transformer(function(x, pattern) {return (gsub(pattern, " ", x))}) 
 corpus <- tm_map(corpus, PlainTextDocument)
-# Remover stopwords usando la lista estándar de tm
-corpus <- tm_map(corpus, removeWords, stopwords("english"))
-# Borrar todos los espacios en blanco extraños
+corpus<- tm_map(corpus,removePunctuation)
+corpus <- tm_map(corpus, removeNumbers)
 corpus <- tm_map(corpus, stripWhitespace)
 
-
-corpus <- tm_map(corpus,stemDocument)
+corpus <- tm_map(corpus, toSpace, '"') 
+corpus <- tm_map(corpus,stemDocument) 
+corpus <- tm_map(corpus, removeWords, stopwords("english"))
 
 
 # Matriz de documentos - términos (MDT)
-dtm<- DocumentTermMatrix(corpus)
-# Matriz de 30 x 4200, en la cual un 89% de filas son cero
-dtm
-
-
+#dtm<- DocumentTermMatrix(corpus)
+(w <- with(presidential_debates_2012, q_dtm(corpus, paste(time, tot, sep = "_"))))
 # Contar la frecuencia de ocurrencia de cada palabra en el corpus
 # .es decir sumar todas las filas y mostrar las sumas de cada columna
-freq <- colSums(as.matrix(dtm))
-freq
-# Validar que la dimensión de la variable freq es igual al número de términos
-length(freq)
+freq <- colSums(as.matrix(w))
 # Ordenar las frecuencias
 ord <- order(freq,decreasing=TRUE)
 # Listar los términos más y menos frecuentes
 freq[head(ord)]
+
 ##################################################################################
 
 
